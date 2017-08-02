@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ConciseElectrometerViewModel>
+@{
+  ViewBag.Title = "Index";
+}
+@section styles {
+  <link rel="stylesheet" href="~/css/home.css">
+}
+@section libs {
+  @Scripts.Render("~/bundles/datetimepicker")
+  @Styles.Render("~/bundles/datetimepicker-css")
+  @Scripts.Render("~/bundles/scroll")
+  @Styles.Render("~/bundles/scroll-css")
+}
+@section scripts {
+  <script src="~/js/home.js"></script>
+}
+<br>
+<h3>Справка за електромер:</h3>
+<hr>
+
+<div class="navbar electrometer-select">
+  <div class="navbar-header">
+    <a href="#" class="navbar-brand">Електромер:</a>
+  </div>
+  <div class="navbar-right">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" id="electrometer-name" data-toggle="dropdown" role="button" aria-expanded="false">Избери</a>
+        <ul class="dropdown-menu">
+          <li class="container electros-dropdown">
+            <ul class="electrometers-container">
+            @foreach(var electro in Model)
+            {
+              <li class="electrometer-option" data-id="@electro.Id">@electro.Name</li>
+            }
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div style="max-height: 0px;opacity: 0;" class="data-visualize-list">
+  <ul class="breadcrumb">
+    <li class="visualize-type active" data-type="chart">Line Chart</li>
+    <li class="visualize-type" data-type="table">Table</li>
+  </ul>
+
+  <!-- <div class="input-group date" id="datetimepicker5">
+    <input type="text" class="form-control" />
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div> -->
+</div>
+
+<div class="chart-container"> 
+</div>
+

@@ -1,0 +1,84 @@
+﻿@model DetailedElectrometerViewModel
+@{
+    ViewBag.Title = "Edit electrometer";
+}
+
+<br><br>
+@using (Html.BeginForm("Edit", "Electrometers", FormMethod.Post, new { @class = "form-horizontal col-md-8 col-md-offset-2" }))
+{
+  @Html.AntiForgeryToken()
+  <fieldset>
+    <legend>Add electrometer form</legend>
+    @Html.ValidationSummary()
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Room </label>
+      <div class="col-lg-10">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @*<input class="form-control" id="Name" name="Name" placeholder="Room name" type="text" value="">*@
+        @Html.ValidationMessageFor(model => model.Name)
+      </div>
+    </div>
+    <div class="form-group">
+      @Html.LabelFor(model => model.DeviceIp, new { @class = "col-lg-2 control-label" })
+      <div class="col-lg-10">
+        @Html.EditorFor(model => model.DeviceIp, new { htmlAttributes = new { @class = "form-control" } })
+        @*<input class="form-control" id="DeviceIp" name="DeviceIp" placeholder="Device IP" type="text" value="@Model.DeviceIp">*@
+        @Html.ValidationMessageFor(model => model.DeviceIp)
+      </div>
+    </div>
+    <div class="form-group">
+      @Html.LabelFor(model => model.DevicePort, new { @class = "col-lg-2 control-label" })
+      <div class="col-lg-10">
+        @Html.EditorFor(model => model.DevicePort, new { htmlAttributes = new { @class = "form-control" } })
+        @*<input class="form-control" id="DevicePort" name="DevicePort" placeholder="Device port" type="text" value="@Model.DevicePort">*@
+        @Html.ValidationMessageFor(model => model.DevicePort)
+      </div>
+    </div>
+    <div class="form-group">
+      @Html.LabelFor(model => model.DeviceId, new { @class = "col-lg-2 control-label" })
+      <div class="col-lg-10">
+        @Html.EditorFor(model => model.DeviceId, new { htmlAttributes = new { @class = "form-control" } })
+        @*<input class="form-control" id="DeviceId" name="DeviceId" placeholder="Device ID" type="text" value="@Model.DeviceId">*@
+        @Html.ValidationMessageFor(model => model.DeviceId)
+      </div>
+    </div>
+    <div class="form-group" id="model-panel" data-model="@Model.Model">
+      @Html.LabelFor(model => model.Model, new { @class = "col-lg-2 control-label" })
+      <div class="col-lg-10">
+        @foreach (var ElectroModel in this.ViewBag.Models as IEnumerable<ElectrometerModel>)
+        {
+          <div class="radio">
+            <label>
+              <input name="Model" id="Model" value="@ElectroModel.Name" checked="" type="radio">              
+              @ElectroModel.Name.Replace("Schneider.", "")
+            </label>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="form-group">
+      @Html.LabelFor(model => model.ConnectionType, new { @class = "col-lg-2 control-label" })
+      <div class="col-lg-10">
+        @foreach (var ElectroConnType in this.ViewBag.ConnectionTypes as IEnumerable<ElectrometerConnectionType>)
+        {
+          <div class="radio">
+            <label>
+              <input name="ConnectionType" id="ConnectionType" value="@ElectroConnType.Name" checked="" type="radio">
+              @ElectroConnType.Name.Replace("_", " ")
+            </label>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <a class="btn btn-default" href="/electrometers/manage">Cancel</a>
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+    </div>
+  </fieldset>
+}
+
+@section scripts {
+  <script src="~/js/electrometer-edit.js"></script>  
+}

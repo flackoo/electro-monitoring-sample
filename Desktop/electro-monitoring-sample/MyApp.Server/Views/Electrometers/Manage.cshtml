@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ConciseElectrometerViewModel>
+@{
+    ViewBag.Title = "Delete";
+}
+@section libs {
+  @Scripts.Render("~/bundles/jconfirm")
+  @Styles.Render("~/bundles/jconfirm-css")
+}
+
+<h2>Delete or edit electrometers</h2>
+<hr />
+
+<table class="table table-striped electrometers-table table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Room name</th>
+      <th>Model</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach(var electro in Model)
+  {
+    <tr class="electrometer" id="electrometer-@electro.Id">
+      <td>@electro.Id</td>
+      <td>@electro.Name</td>
+      <td>@electro.Model</td>
+      <td>
+        <a class="btn btn-primary" href="/electrometers/edit/@electro.Id">Edit</a>
+        <a class="btn btn-danger electrometer-delete" data-id="@electro.Id" href="#">Delete</a>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table> 
+
+@section scripts {
+  <script src="~/js/electrometer-delete.js"></script>  
+}
